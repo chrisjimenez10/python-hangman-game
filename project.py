@@ -1,14 +1,9 @@
 import random
 import stages
 import clear
+import consume
 
-word_list = [
-    "wendy",
-    "chris",
-    "amway",
-    "bww",
-    "free"
-]
+word_list = consume.fetchWord()
 
 def startHangman():
 
@@ -23,6 +18,7 @@ def startHangman():
 
         display = ["-" for letter in chosen_word]
         chances = 6
+        wrong_guesses = []
 
         print(F"Your word has {word_length} letters and you have {chances} lives to guess the word correctly - Good Luck!")
 
@@ -40,6 +36,8 @@ def startHangman():
                 print(stages.stages[2])
             elif chances == 1:
                 print(stages.stages[1])
+            
+            print(F"Incorrect guesses: {wrong_guesses}")
 
             player_guess = input(F"{display}\nGuess a letter:\n").lower()
 
@@ -50,9 +48,10 @@ def startHangman():
             
             if player_guess not in chosen_word:
                 chances -= 1
+                wrong_guesses.append(player_guess)
 
             if chances == 0:
-                print(F"{stages.stages[0]}\nYou have {chances} guesses left and ran out of lives - Game Over...")
+                print(F"{stages.stages[0]}\nYou have {chances} guesses left and ran out of lives - The word was {chosen_word}\nGame Over...")
                 losses += 1
                 break
 

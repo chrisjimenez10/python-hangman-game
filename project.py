@@ -20,7 +20,7 @@ def startHangman():
         chances = 6
         wrong_guesses = []
 
-        print(F"Your word has {word_length} letters and you have {chances} lives to guess the word correctly - Good Luck!")
+        print(F"{stages.logo}\nYour word has {word_length} letters and you have {chances} lives to guess the word correctly\nGood Luck!")
 
         while True:
 
@@ -41,10 +41,13 @@ def startHangman():
 
             player_guess = input(F"{display}\nGuess a letter:\n").lower()
 
+            if player_guess in display:
+                print("You already guessed that letter")
+
             for position in range(word_length):
                 letter = chosen_word[position]
                 if player_guess == letter:
-                    display[position] = letter
+                    display[position] = letter           
             
             if player_guess not in chosen_word:
                 chances -= 1
